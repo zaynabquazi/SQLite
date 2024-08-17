@@ -1,0 +1,5 @@
+CREATE TABLE "PhoneNumbers" (
+	"Number"	INTEGER,
+	"Type"	TEXT,
+	"Key"	INTEGER
+);
