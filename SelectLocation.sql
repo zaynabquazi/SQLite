@@ -8,3 +8,5 @@ WHERE Location = 'Los Angeles, CA';
 
 SELECT count(*) FROM PhoneBook
 
+SELECT * FROM PhoneBook 
+WHERE Mobile IS NULL;
