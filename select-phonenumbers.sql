@@ -1,5 +1,6 @@
 -- SQLite
 select * from phonenumbers;
+# line 4 prints errors 
 select * from phonenumbers where phonenumber like '%555%';
 select * from phonenumbers where phonenumber like '%555%' and phonenumber like '%555%'; 
 
