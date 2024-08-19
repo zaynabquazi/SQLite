@@ -1,0 +1,21 @@
+-- Create the customer table
+CREATE TABLE customer (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    email TEXT
+);
+
+-- Create the orders table with a foreign key to the customer table
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY,
+    customer_id INTEGER,
+    order_date TEXT,
+    FOREIGN KEY (customer_id) REFERENCES customer(id)
+);
+
+-- Create the inventory table
+CREATE TABLE inventory (
+    id INTEGER PRIMARY KEY,
+    product_name TEXT,
+    quantity INTEGER
+);
