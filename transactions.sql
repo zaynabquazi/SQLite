@@ -18,3 +18,16 @@ INNER JOIN inventory ON inventory.id = orders.inventory_id
 WHERE inventory.id = 4;
 
 SELECT * from inventory
+
+INSERT INTO orders 
+(customer_id, quantity, order_date, inventory_id) 
+VALUES(1, 1, '8/19/2024', 1);
+
+SELECT * FROM orders 
+order BY rowid DESC
+LIMIT 1;
+
+
+
+
+ 

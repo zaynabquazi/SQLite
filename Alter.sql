@@ -19,3 +19,4 @@ RENAME COLUMN id to inventory_id;
 ALTER TABLE orders 
 RENAME COLUMN id to order_id 
 
+
