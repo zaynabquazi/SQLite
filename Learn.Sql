@@ -31,8 +31,6 @@ LIMIT 1;
 SELECT * FROM inventory inv
 
 --Display record from one table that has related record from another table 
-
-
 SELECT 
 ord.order_id, 
 ord.order_date,
@@ -42,6 +40,21 @@ inv.product_name
 FROM orders ord 
 INNER JOIN customer cust on ord.customer_id = cust.customer_id
 INNER JOIN inventory inv on ord.inventory_id = inv.inventory_id;
+
+-- by a specific column value 
+SELECT 
+ord.order_id, 
+ord.order_date,
+ord.quantity,
+cust.name,
+inv.product_name 
+FROM orders ord 
+INNER JOIN customer cust on ord.customer_id = cust.customer_id
+INNER JOIN inventory inv on ord.inventory_id = inv.inventory_id
+
+WHERE cust.customer_id = 1 AND inv.product_name = 'Laptop';
+
+
 
 
 
