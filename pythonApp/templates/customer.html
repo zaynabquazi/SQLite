@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 20px; }
+        input, button { padding: 8px; margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <h1>Customer Management</h1>
+
+    <!-- Form to create a new customer -->
+    <h2>Create Customer</h2>
+    <form id="createCustomerForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Create</button>
+    </form>
+
+    <!-- Form to update an existing customer -->
+    <h2>Update Customer</h2>
+    <form id="updateCustomerForm">
+        <input type="number" id="updateId" placeholder="Customer ID" required>
+        <input type="text" id="updateName" placeholder="New Name" required>
+        <input type="email" id="updateEmail" placeholder="New Email" required>
+        <button type="submit">Update</button>
+    </form>
+
+    <!-- Form to delete a customer -->
+    <h2>Delete Customer</h2>
+    <form id="deleteCustomerForm">
+        <input type="number" id="deleteId" placeholder="Customer ID" required>
+        <button type="submit">Delete</button>
+    </form>
+
+    <!-- Section to display customers -->
+    <h2>Customer List</h2>
+    <button onclick="fetchCustomers()">Refresh List</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="customerList">
+            <!-- Customer list will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to create a customer
+        document.getElementById('createCustomerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            fetch('/customer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchCustomers();
+            });
+        });
+
+        // Function to update a customer
+        document.getElementById('updateCustomerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const id = document.getElementById('updateId').value;
+            const name = document.getElementById('updateName').value;
+            const email = document.getElementById('updateEmail').value;
+
+            fetch(`/customer/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchCustomers();
+            });
+        });
+
+        // Function to delete a customer
+        document.getElementById('deleteCustomerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const id = document.getElementById('deleteId').value;
+
+            fetch(`/customer/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchCustomers();
+            });
+        });
+
+        // Function to fetch and display customers
+        function fetchCustomers() {
+            fetch('/customers')
+            .then(response => response.json())
+            .then(data => {
+                const customerList = document.getElementById('customerList');
+                customerList.innerHTML = '';
+                data.forEach(customer => {
+                    const row = `<tr>
+                                    <td>${customer.id}</td>
+                                    <td>${customer.name}</td>
+                                    <td>${customer.email}</td>
+                                 </tr>`;
+                    customerList.innerHTML += row;
+                });
+            });
+        }
+
+        // Fetch customers when the page loads
+        window.onload = fetchCustomers;
+    </script>
+
+</body>
+</html>
