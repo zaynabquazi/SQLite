@@ -2,10 +2,6 @@ from flask import Flask, render_template, request
 from datetime import datetime
 
 app = Flask(__name__)
-#modify the app to not use the 24 hour clock
-#and to use the 12 hour clock
-
-
 
 
 @app.route('/')
@@ -15,6 +11,7 @@ def home():
 @app.route('/greet', methods=['POST'])
 def greet():
     name = request.form.get('name')
+    age = int(request.form.get('age'))
     current_hour = datetime.now().hour
 
     if 5 <= current_hour < 12:
@@ -24,7 +21,12 @@ def greet():
     else:
         greeting = "Good Evening"
 
-    return render_template('greet.html', name=name, greeting=greeting)
+    if age > 19:
+        age = "You are not a teenager"
+    else:
+        age = "You are a teenager"
+                 
+    return render_template('greet.html', name=name, greeting=greeting, age=age)
 
 @app.route('/about')
 def about():
