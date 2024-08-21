@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///phonebook.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///phonebook2.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -43,6 +43,7 @@ def delete_person(key):
     db.session.commit()
     return redirect(url_for('index'))
 
-if __name__ == "__main__":
-    db.create_all()  # Create tables if they don't exist
-    app.run(debug=True)  # Start the Flask application
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Create tables if they don't exist
+    app.run(debug=True)
