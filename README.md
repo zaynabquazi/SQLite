@@ -6,3 +6,5 @@ We have Phone Book with various contacts and locations. We practice how to join 
 
 *Contributors : Yaheya Quazi
 *Contributor: Zaynab Quazi
+
+Programming Languages that are in use are SQL, HTML, Python
