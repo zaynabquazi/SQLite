@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -17,11 +18,16 @@
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.phone }}</td>
+                <td>
+                    <a href="{{ url_for('update_customer', customer_id=customer.id) }}">Edit</a>
+                    <a href="{{ url_for('delete_customer', customer_id=customer.id) }}"
+                        onclick="return confirm('whatddaa?')">Delete</a>
+
+                </td>
             </tr>
             {% endfor %}
         </tbody>
 
     </table>
-             
 </section>
 {% endblock %}
