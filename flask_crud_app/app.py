@@ -10,6 +10,7 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
+    phone = db.Column(db.String(100), nullable=True)
       
 with app.app_context():
     db.create_all()
@@ -27,7 +28,8 @@ def create_customer():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
-        customer = Customer(name=name, email=email)
+        phone = request.form['phone']
+        customer = Customer(name=name, email=email, phone=phone)
         db.session.add(customer)
         db.session.commit()
         return redirect(url_for('index'))
@@ -41,6 +43,7 @@ def update_customer(customer_id):
     if request.method == 'POST':
         customer.name = request.form['name']
         customer.email = request.form['email']
+        customer.phone = request.form['phone']
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('update_customer.html', customer=customer)
