@@ -23,8 +23,9 @@ with app.app_context():
 @app.route('/')
 
 def index():
+    customer_count  = Customer.query.count()  # Get the count of customers
     customers = Customer.query.all()
-    return render_template('index.html', customers=customers)
+    return render_template('index.html', customers=customers, customer_count=customer_count)
 
 @app.route('/create', methods=['GET', 'POST'])
 
