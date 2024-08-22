@@ -1,16 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import inspect
-from setup_db import app, db, Customer  # Import the app, db object, and Customer model
+from setup_db import app, db, Customer, Inventory  # Consolidated import statement
 
-# Create the tables if they don't exist
-with app.app_context():
-    inspector = inspect(db.engine)
-    if 'customer' not in inspector.get_table_names():
-        db.create_all()
+# Route to display all inventory items
+@app.route('/inventory')
+def inventory():
+    inventory_items = Inventory.query.all()
+    return render_template('inventory.html', inventory_items=inventory_items)
 
 # Route for the homepage, which displays the list of customers and the customer count
 @app.route('/')
-def index():
+def homepage():
     customer_count = Customer.query.count()  # Get the count of customers
     customers = Customer.query.all()  # Retrieve all customer records
     return render_template('index.html', customers=customers, customer_count=customer_count)
@@ -25,7 +25,7 @@ def create_customer():
         customer = Customer(name=name, email=email, phone=phone)
         db.session.add(customer)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('homepage'))  # Redirect to the homepage route
     return render_template('create_customer.html')
 
 # Route for updating an existing customer, handling both GET and POST requests
@@ -37,7 +37,7 @@ def update_customer(customer_id):
         customer.email = request.form['email']
         customer.phone = request.form['phone']
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('homepage'))  # Redirect to the homepage route
     return render_template('update_customer.html', customer=customer)
 
 # Route for deleting an existing customer
@@ -46,7 +46,7 @@ def delete_customer(customer_id):
     customer = Customer.query.get_or_404(customer_id)
     db.session.delete(customer)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('homepage'))  # Redirect to the homepage route
 
 if __name__ == '__main__':
     app.run(debug=True)
