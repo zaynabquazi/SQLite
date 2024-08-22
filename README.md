@@ -8,3 +8,5 @@ We have Phone Book with various contacts and locations. We practice how to join 
 *Contributor: Zaynab Quazi
 
 Programming Languages that are in use are SQL, HTML, Python
+
+new laptop
