@@ -8,6 +8,11 @@ def inventory():
     inventory_items = Inventory.query.all()
     return render_template('inventory.html', inventory_items=inventory_items)
 
+@app.route('/create_inventory')
+def create_inventory():
+    return render_template('create_inventory.html') # Render the create_inventory.html template
+
+
 # Route for the homepage, which displays the list of customers and the customer count
 @app.route('/')
 def homepage():

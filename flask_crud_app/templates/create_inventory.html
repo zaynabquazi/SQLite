@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <h2>Add Inventory</h2>
+    <form action="{{ url_for('create_inventory') }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required><br>
+        
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" name="quantity" required><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</section>
+{% endblock %}
