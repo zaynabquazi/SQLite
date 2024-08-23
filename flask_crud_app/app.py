@@ -25,8 +25,16 @@ def create_inventory():
     
     return render_template('create_inventory.html')  # Render the form on GET request
 
-
-
+@app.route('/update/<int:inventory_id>', methods=['GET', 'POST'])
+def update_inventory(inventory_id):
+    inventory = Inventory.query.get_or_404(inventory_id)
+    if request.method == 'POST':
+        inventory.name = request.form['name']
+        inventory.price = request.form['price']
+        inventory.quantity = request.form['quantity']
+        db.session.commit()
+        return redirect(url_for('inventory'))  # Redirect to the homepage route
+    return render_template('update_inventory.html', inventory_item=inventory)
 
 # Route for the homepage, which displays the list of customers and the customer count
 @app.route('/')

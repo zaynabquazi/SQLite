@@ -4,16 +4,18 @@
 <section>
     <h2>Add Inventory</h2>
     <form action="{{ url_for('create_inventory') }}" method="POST">
-        <label for="name">Name:</label>
+        <label for="name">Name of the item:</label>
         <input type="text" id="name" name="name" required><br>
         
         <label for="price">Price:</label>
         <input type="text" id="price" name="price" required><br>
         
-        <label for="quantity">Quantity:</label>
+        <label for="quantity">Quantity On Hand:</label>
         <input type="text" id="quantity" name="quantity" required><br>
         
-        <input type="submit" value="Submit">
+        <div>
+            <button type="submit">Add Customer</button>
+        </div>
     </form>
 </section>
 {% endblock %}
