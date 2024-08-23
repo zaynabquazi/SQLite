@@ -8,9 +8,24 @@ def inventory():
     inventory_items = Inventory.query.all()
     return render_template('inventory.html', inventory_items=inventory_items)
 
-@app.route('/create_inventory')
+
+@app.route('/create_inventory', methods=['GET', 'POST'])
 def create_inventory():
-    return render_template('create_inventory.html') # Render the create_inventory.html template
+    if request.method == 'POST':
+        name = request.form['name']
+        price = request.form['price']
+        quantity = request.form['quantity']
+        
+        # Assuming Inventory is a model you have imported and defined
+        new_inventory = Inventory(name=name, price=price, quantity=quantity)
+        db.session.add(new_inventory)
+        db.session.commit()
+        
+        return redirect(url_for('inventory'))  # Redirect to the inventory list after creation
+    
+    return render_template('create_inventory.html')  # Render the form on GET request
+
+
 
 
 # Route for the homepage, which displays the list of customers and the customer count
