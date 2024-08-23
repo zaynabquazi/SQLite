@@ -34,7 +34,7 @@ def update_inventory(inventory_id):
         inventory.quantity = request.form['quantity']
         db.session.commit()
         return redirect(url_for('inventory'))  # Redirect to the homepage route
-    return render_template('update_inventory.html', inventory_item=inventory)
+    return render_template('update_inventory.html', inventory=inventory)
 
 # Route for the homepage, which displays the list of customers and the customer count
 @app.route('/')
