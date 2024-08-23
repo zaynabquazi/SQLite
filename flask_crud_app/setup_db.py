@@ -24,7 +24,8 @@ class Inventory(db.Model):
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer, nullable=True)
-
+    notes = db.Column(db.String(255), nullable=True)
+    
 # Create the tables if they don't exist
 with app.app_context():
     db.create_all()
