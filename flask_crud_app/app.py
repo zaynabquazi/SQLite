@@ -15,7 +15,7 @@ def zaynab():
 def inventory():
     inventory_items = Inventory.query.all()
     return render_template('inventory.html', inventory_items=inventory_items)
-q
+
 
 @app.route('/create_inventory', methods=['GET', 'POST'])
 def create_inventory():
