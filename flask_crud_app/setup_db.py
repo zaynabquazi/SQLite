@@ -25,6 +25,21 @@ class Inventory(db.Model):
     price = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.String(255), nullable=True)
+
+# create a new orders table
+# once you have the code, you run python3 setup_db.py to create the table
+# -- Create the orders table with a foreign key to the customer table
+# CREATE TABLE orders (
+#    id INTEGER PRIMARY KEY,
+#    customer_id INTEGER,
+#    order_date TEXT,
+#    FOREIGN KEY (customer_id) REFERENCES customer(id)
+# );
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    order_date = db.Column(db.String(100), nullable=False)
+    customer = db.relationship('Customer', backref='orders')
     
 # Create the tables if they don't exist
 with app.app_context():
