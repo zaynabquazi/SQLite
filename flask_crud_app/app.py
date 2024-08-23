@@ -1,13 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import inspect
-from setup_db import app, db, Customer, Inventory  # Consolidated import statement
+from setup_db import app, db, Customer, Inventory, Orders  # Consolidated import statement
+
+
+# Route for orders 
+@app.route('/orders')
+def zaynab():
+    order_items = Orders.query.all()
+    order_count = Orders.query.count()
+    return render_template('orders.html', order_items=order_items, order_count=order_count)
 
 # Route to display all inventory items
 @app.route('/inventory')
 def inventory():
     inventory_items = Inventory.query.all()
     return render_template('inventory.html', inventory_items=inventory_items)
-
+q
 
 @app.route('/create_inventory', methods=['GET', 'POST'])
 def create_inventory():
