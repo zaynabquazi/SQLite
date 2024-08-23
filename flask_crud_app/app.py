@@ -5,7 +5,7 @@ from setup_db import app, db, Customer, Inventory, Orders  # Consolidated import
 
 # Route for orders 
 @app.route('/orders')
-def zaynab():
+def myorders():
     order_items = Orders.query.all()
     order_count = Orders.query.count()
     return render_template('orders.html', order_items=order_items, order_count=order_count)
